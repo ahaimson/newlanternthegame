@@ -1,5 +1,9 @@
 # NEW LANTERN — X-RAY RUNNER
 
+<p align="center">
+  <img src="docs/title-screen.png" alt="New Lantern — X-Ray Runner title screen" width="640" />
+</p>
+
 An 8-bit, radiology-themed auto-runner for a 2-key USB keypad (or any keyboard).
 You play a radiology pioneer who runs through a neon CT-scanner skyline; **JUMP**
 through the scanners flying overhead to X-ray yourself — a glowing skeleton
