@@ -1,0 +1,12 @@
+{
+  "name": "key-widget",
+  "version": "1.0.0",
+  "description": "USB 2-key fidget visualizer — neon synth-pad on localhost:3000",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

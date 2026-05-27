@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NEW LANTERN · X-RAY RUNNER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="game.css" />
+</head>
+<body>
+  <div id="frame">
+    <canvas id="game" width="320" height="180"></canvas>
+    <div id="scanlines"></div>
+    <div id="vignette"></div>
+
+    <!-- TITLE -->
+    <section id="title" class="screen open">
+      <div class="panel">
+        <p class="kicker">SELECT RUNNER</p>
+        <div class="chars">
+          <button class="char" id="charCurie" data-char="curie">
+            <span class="av" data-av="curie"></span>
+            <span class="cname">DR. CURIE</span>
+            <span class="csex">F</span>
+          </button>
+          <button class="char" id="charRontgen" data-char="rontgen">
+            <span class="av" data-av="rontgen"></span>
+            <span class="cname">DR. RÖNTGEN</span>
+            <span class="csex">M</span>
+          </button>
+        </div>
+
+        <p class="kicker">DIFFICULTY</p>
+        <div class="seg" id="diffSeg">
+          <button data-diff="easy">EASY</button>
+          <button data-diff="normal">NORMAL</button>
+          <button data-diff="hard">HARD</button>
+        </div>
+
+        <div class="actions">
+          <button id="startBtn" class="cta">&#9654; START</button>
+          <button id="scoresBtn" class="ghost">HIGH SCORES</button>
+          <button id="bindBtn" class="ghost">BIND KEYS</button>
+        </div>
+
+        <p class="ctrls">
+          <b id="lblBrake">A</b> BRAKE &nbsp;·&nbsp; <b id="lblJump">SPACE</b> JUMP
+          <span class="best">BEST <i id="bestTitle">0</i></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- HIGH SCORES -->
+    <section id="scores" class="screen">
+      <div class="panel">
+        <p class="kicker">HIGH SCORES</p>
+        <ol id="hiTableMenu" class="hitable"></ol>
+        <div class="actions"><button id="scoresBack" class="cta">&#9664; BACK</button></div>
+        <p class="ctrls">Press <b>JUMP</b> or <b>BRAKE</b> to return</p>
+      </div>
+    </section>
+
+    <!-- KEY BINDING -->
+    <section id="cal" class="screen">
+      <div class="panel narrow">
+        <p class="kicker">CALIBRATE</p>
+        <h2 id="calWhich">PRESS YOUR BRAKE KEY</h2>
+        <p class="hint">Tap the key (or USB pad button) you want for this control.</p>
+        <p class="detected" id="calDetected">waiting…</p>
+        <div class="actions">
+          <button id="calSkip" class="ghost">SKIP</button>
+          <button id="calCancel" class="ghost">CANCEL</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAUSE -->
+    <section id="pause" class="screen">
+      <div class="panel narrow">
+        <h2>PAUSED</h2>
+        <p class="hint" id="resumeHint">Press JUMP or click to resume</p>
+      </div>
+    </section>
+
+    <!-- NAME ENTRY (new high score) -->
+    <section id="enter" class="screen">
+      <div class="panel narrow">
+        <p class="kicker" id="enterRank">NEW HIGH SCORE</p>
+        <div id="enterScore">0</div>
+        <input id="nameInput" maxlength="12" autocomplete="off" autocorrect="off"
+               autocapitalize="characters" spellcheck="false" placeholder="YOUR NAME" />
+        <p class="hint">Type your name — <b style="color:var(--amber)">ENTER</b> or <b style="color:var(--amber)">JUMP</b> to save</p>
+        <div class="actions"><button id="saveScore" class="cta">SAVE</button></div>
+      </div>
+    </section>
+
+    <!-- GAME OVER -->
+    <section id="gameover" class="screen">
+      <div class="panel">
+        <h2 class="go">FILM EXPOSED</h2>
+        <div class="scores">
+          <div><span>SCORE</span><b id="goScore">0</b></div>
+          <div><span>X-RAYS</span><b id="goXrays">0</b></div>
+          <div><span>BEST</span><b id="goBest">0</b></div>
+        </div>
+        <p class="kicker">HIGH SCORES</p>
+        <ol id="hiTable" class="hitable"></ol>
+        <div class="actions">
+          <button id="goReplay" class="cta">&#9654; RUN AGAIN</button>
+          <button id="goMenu" class="ghost">MENU</button>
+        </div>
+        <p class="ctrls"><b id="lblJump2">JUMP</b> RETRY &nbsp;·&nbsp; <b id="lblBrake2">BRAKE</b> MENU</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

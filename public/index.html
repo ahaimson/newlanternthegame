@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>KEY·WIDGET — fidget pad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="viz"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="flash" class="flash" aria-hidden="true"></div>
+
+  <!-- Top HUD -->
+  <header class="hud">
+    <div class="brand">
+      <span class="brand-mark">◉◉</span>
+      <span class="brand-name">KEY<span class="brand-dot">·</span>WIDGET</span>
+      <span class="brand-sub" id="sceneTag">RIPPLE</span>
+    </div>
+    <div class="telemetry">
+      <div class="chip"><span class="chip-k">COMBO</span><span class="chip-v" id="tCombo">0</span></div>
+      <div class="chip"><span class="chip-k">HITS</span><span class="chip-v" id="tHits">0</span></div>
+      <div class="chip"><span class="chip-k">BPM</span><span class="chip-v" id="tBpm">0</span></div>
+      <button id="gear" class="gear" title="Settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="12" r="3.2"/>
+          <path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1M18.7 18.7l-2.1-2.1M7.4 7.4 5.3 5.3"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Pads -->
+  <main class="stage">
+    <div class="pads">
+      <div class="pad" id="padA" data-key="A">
+        <div class="pad-ring"></div>
+        <div class="pad-core">
+          <span class="pad-label">PAD A</span>
+          <span class="pad-code" id="codeA">—</span>
+          <span class="pad-count" id="countA">0</span>
+        </div>
+      </div>
+      <div class="pad" id="padB" data-key="B">
+        <div class="pad-ring"></div>
+        <div class="pad-core">
+          <span class="pad-label">PAD B</span>
+          <span class="pad-code" id="codeB">—</span>
+          <span class="pad-count" id="countB">0</span>
+        </div>
+      </div>
+    </div>
+    <p class="hint" id="hint">Press your USB keys — or hit <b>Calibrate</b> to bind them.</p>
+  </main>
+
+  <!-- Settings drawer -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>CONFIG</h2>
+      <button id="closeDrawer" class="x" aria-label="Close">✕</button>
+    </div>
+
+    <section class="grp">
+      <h3>Keys</h3>
+      <div class="bind-row">
+        <span class="dot dotA"></span>
+        <div class="bind-info"><b>Pad A</b><code id="bindA">unbound</code></div>
+        <button class="mini" id="rebindA">bind</button>
+      </div>
+      <div class="bind-row">
+        <span class="dot dotB"></span>
+        <div class="bind-info"><b>Pad B</b><code id="bindB">unbound</code></div>
+        <button class="mini" id="rebindB">bind</button>
+      </div>
+      <button class="wide" id="calibrate">⟳ Calibrate both keys</button>
+      <label class="toggle">
+        <input type="checkbox" id="anyKey" />
+        <span>Test mode — react to <i>any</i> key</span>
+      </label>
+    </section>
+
+    <section class="grp">
+      <h3>Color</h3>
+      <div class="color-row">
+        <label>Pad A<input type="color" id="colA" value="#21e6c1" /></label>
+        <label>Pad B<input type="color" id="colB" value="#ff2d95" /></label>
+        <label>Backdrop<input type="color" id="colBg" value="#070710" /></label>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="cycleHue" />
+        <span>Auto-shift hue on every hit</span>
+      </label>
+    </section>
+
+    <section class="grp">
+      <h3>Scene</h3>
+      <div class="scene-grid" id="sceneGrid">
+        <button data-scene="ripple" class="scene-btn">Ripple</button>
+        <button data-scene="burst" class="scene-btn">Burst</button>
+        <button data-scene="bars" class="scene-btn">Bars</button>
+        <button data-scene="orb" class="scene-btn">Orb</button>
+        <button data-scene="strings" class="scene-btn">Strings</button>
+        <button data-scene="rain" class="scene-btn">Rain</button>
+      </div>
+    </section>
+
+    <section class="grp">
+      <h3>Feel</h3>
+      <label class="slider">Intensity <input type="range" id="intensity" min="0.3" max="2" step="0.05" value="1" /></label>
+      <label class="slider">Afterglow <input type="range" id="afterglow" min="0.02" max="0.4" step="0.01" value="0.12" /></label>
+      <label class="toggle"><input type="checkbox" id="shake" checked /><span>Screen shake</span></label>
+      <label class="toggle"><input type="checkbox" id="bloom" checked /><span>Flash bloom</span></label>
+      <label class="toggle"><input type="checkbox" id="sound" /><span>Blip sound</span></label>
+    </section>
+
+    <button class="reset" id="reset">Reset to defaults</button>
+    <p class="foot">Reads only this tab's key events — your Apple keyboard &amp; mouse are untouched.</p>
+  </aside>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+  <!-- Calibration overlay -->
+  <div class="cal" id="cal" aria-hidden="true">
+    <div class="cal-box">
+      <div class="cal-step" id="calStep">STEP 1 / 2</div>
+      <div class="cal-prompt" id="calPrompt">Press <b id="calWhich">PAD A</b> on your USB keypad</div>
+      <div class="cal-detected" id="calDetected">waiting…</div>
+      <div class="cal-actions">
+        <button id="calSkip" class="mini">skip</button>
+        <button id="calCancel" class="mini ghost">cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
