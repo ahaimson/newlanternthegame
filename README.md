@@ -9,6 +9,12 @@ gets harder. **BRAKE** slows the run to line up the jump. Runs locally at
 
 > New Lantern is radiology software — hence the X-ray theme.
 
+<p align="center">
+  <img src="docs/keypad.jpeg" alt="The 2-key USB keypad the game is built around" width="420" />
+  <br />
+  <em>The 2-key USB pad — one key to brake, one to jump.</em>
+</p>
+
 ## Run it
 
 ```bash
