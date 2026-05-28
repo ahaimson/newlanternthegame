@@ -5,13 +5,12 @@
 </p>
 
 An 8-bit, radiology-themed auto-runner for a 2-key USB keypad (or any keyboard).
-You play a radiology pioneer who runs through a neon CT-scanner skyline; **JUMP**
+You play a radiology pioneer who runs through a neon imaging skyline; **JUMP**
 through the scanners flying overhead to X-ray yourself — a glowing skeleton
 reveal — and rack up points. The runner speeds up over time, so timing your leaps
 gets harder. **BRAKE** slows the run to line up the jump. Runs locally at
 `http://localhost:3000`.
 
-> New Lantern is radiology software — hence the X-ray theme.
 
 <p align="center">
   <img src="docs/keypad.jpeg" alt="The 2-key USB keypad the game is built around" width="420" />
